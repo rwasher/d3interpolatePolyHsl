@@ -10,7 +10,7 @@
     <![endif]-->
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.0.1/d3.v3.min.js"></script>
-    <script type="text/javascript" src="d3-colorScale.js"></script>
+    <script type="text/javascript" src="d3-interpolatePolyHsl.js"></script>
     <style type="text/css">
 
       ul li { list-style-type:none; display:block; padding:0.5em; }
@@ -28,7 +28,20 @@
 
         var data = [0,1,2,3,4,5,6,7,8,9,10];
         var scale = d3.scale.linear().interpolate(d3.interpolateHsl).domain([0,10]).range(["#ff0000","#ffffff"]);
-        var colorScale = d3.scale.linear().interpolate(d3.interpolatePolyHsl).domain([0,10]).range(["#ff0000","#ffffff"],"#0000ff");
+        var colorScale = d3.scale.linear().interpolate(d3.interpolatePolyHsl).domain([0,10]).range([["rgb(255,0,0)","rgb(60,200,0)"],[
+            "rgb(255,0,0)",
+            "rgb(255,90,0)",
+            "rgb(255,160,49)",
+            "rgb(255,255,0)"
+          ]]);
+        var testScale = d3.scale.linear().domain([0,2,4,6,8,10]).range([
+          "rgb(255,0,0)",
+          "rgb(255,0,0)",
+          "rgb(255,90,0)",
+          "rgb(255,160,49)",
+          "rgb(255,255,0)",
+          "rgb(60,200,0)"
+        ]);
 
         var container = $("<ul>");
         for(point in data){
@@ -44,6 +57,16 @@
         for(point in data){
           var item = $("<li style='background-color:"+colorScale(data[point])+"'></li>");
           item.html(data[point]+" : "+colorScale(data[point]));
+          container.append(item);
+        }
+        $("body").append(container);
+
+        $("body").append($("<hr />"));
+        
+        var container = $("<ul>");
+        for(point in data){
+          var item = $("<li style='background-color:"+testScale(data[point])+"'></li>");
+          item.html(data[point]+" : "+testScale(data[point]));
           container.append(item);
         }
         $("body").append(container);

@@ -1,2 +1,3 @@
-d3-colorScale
-=============
+d3-interpolatePolyHsl
+====
+
